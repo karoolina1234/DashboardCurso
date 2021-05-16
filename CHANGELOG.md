@@ -1,65 +1,56 @@
 # Change Log
 
-## V1.0.0
+## [0.3.0] 2019-07-24
 
-###### Aug 7, 2020
+## Updates
 
-- Add `eslint`
-- Add `Feather Icons`
-- Add `Formik` for login/register pages
-- Implement `react-router` v6 routing method
-- Remove extra views
-- Remove `node-sass` dependency
-- Update all components to match the PRO version style
-- Update dependencies
-- Update folder structure to remove folder depth
-- Update theme configuration
+- Removed `services` and `data` folders, each component has its own data
+- Implemented a custom Route component to wrap views in layouts
+- Updated the layout to match with the PRO version
+- Replaced custom cumponents (Portlet) with Material-UI built-in components
+- Ajusted theme colors
+- Implemented `useStyle` hook instead of `withStyles` HOC
+- Moved from Class Components to Functional Components
+- Replaced dependency `classnames` with `clsx`
+- Replaced `.jsx` with `.js`
+- Removed unused `.scss` files from `assets` folder
+- Updated dependencies
 
-## V0.4.0
+## Contributors
 
-###### Jul 24, 2019
+- [Christopher Escalon](https://github.com/escalonc) - Updating packages and fixing deprecated for spacing
 
-- Adjust theme colors
-- Implement `useStyle` hook instead of `withStyles` HOC
-- Implement a custom Route component to wrap views in layouts
-- Remove `services` and `data` folders, each component has its own data
-- Remove unused `.scss` files from `assets` folder
-- Replace `.jsx` with `.js`
-- Replace Class Components with Function Components
-- Replace custom cumponents (Portlet) with Material-UI built-in components
-- Replace dependency `classnames` with `clsx`
-- Update dependencies
-- Update the layout to match the PRO version
+## [0.2.0] 2019-05-13
 
-## V0.3.0
+## Updates
 
-###### May 13, 2019
+- [#5](https://github.com/devias-io/react-material-dashboard/issues/5) Updated to @material-ui to `4.0.0-beta`
+- Updated few icons to match @material-ui v4 updates
+- Updated React version to `16.8.6` to support React Hooks
+- Implemented `jsconfig.json` file and removed `.env` to match React v16.8.6 absolute paths
+- Updated Dashboard view top widgets styles and structure
+- Updated chart styles and options
 
-- Implement `jsconfig.json` file and removed `.env` to match React v16.8.6 absolute paths
-- Update chart styles and options
-- Update Dashboard view top widgets styles and structure
-- Update few icons to match @material-ui v4 updates
-- Update React version to 16.8.6 to support React Hooks
-- Update to @material-ui to 4.0.0-beta
+## [0.1.1] 2019-05-11
 
-## V0.2.0
+### Updates
 
-###### May 11, 2019
+- Updated README.md
+- Added docs for IE11 polyfill
+- Removed unused scss from assets
+- Removed unused components from shared components
+- Removed `authGuard` since it won't be used in this version
+- Removed `auth` service folder since it won't be implemented for this version
+- Removed "status" from `ProductCard` component since it was not part of released design
+- Changed icon in `Users` widget (ArrowDropDown with ArrowDropUp)
 
-- Add docs for IE11 polyfill
-- Fix `DisplayMode` component size, when used as a flex child it could grow/shrink
-- Fix `ProductCard` component description height
-- Fix `Typography` view responsiveness for small devices
-- Fix charts responsiveness
-- Remove "status" from `ProductCard` component since it was not part of released design
-- Remove `auth` service folder since it won't be implemented for this version
-- Remove `authGuard` since it won't be used in this version
-- Remove unused components from shared components
-- Remove unused scss from assets
-- Update README.md
+### Fixed bugs
 
-## V0.1.0
+- Fixed charts responsiveness
+- Fixed `DisplayMode` component size, when used as a flex child it could grow/shrink
+- Fixed `Typography` view responsiveness for small devices
+- [#2](https://github.com/devias-io/react-material-dashboard/pull/2) Fixed `ProductCard` component description height
 
-###### May 2, 2019
+## [0.1.0] 2019-05-02
 
 ### Initial commit
