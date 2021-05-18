@@ -63,12 +63,15 @@ const UsersToolbar = props => {
               placeholder="descrição da tarefa"
               label="Descrição"
               onChange={e => setDEscricao(e.target.value)}
+              value={descricao}
               fullWidth />
           </Grid>
           <Grid item md={4}>
             <FormControl fullWidth>
               <InputLabel>Categoria:</InputLabel>
-              <Select onChange={e => setCategoria(e.target.value)}>
+              <Select
+                value={categoria}
+                onChange={e => setCategoria(e.target.value)}>
                 <MenuItem value=''>Selecione</MenuItem>
                 <MenuItem value={'TRABALHO'}>Trabalho</MenuItem>
                 <MenuItem value={'ESTUDOS'}>Estudos</MenuItem>
@@ -78,8 +81,8 @@ const UsersToolbar = props => {
           </Grid>
           <Grid item md={2}>
             <Button variant="contained"
-             color="secondary"
-            onClick={submit} >Adicionar</Button>
+              color="secondary"
+              onClick={submit} >Adicionar</Button>
           </Grid>
 
         </Grid>
