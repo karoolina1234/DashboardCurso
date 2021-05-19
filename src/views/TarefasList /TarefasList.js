@@ -6,7 +6,7 @@ import axios from 'axios'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { listar } from 'store/tarefasReducer'
+import { listar , salvar} from 'store/tarefasReducer'
 import {
   Dialog,
   DialogContent,
@@ -41,30 +41,30 @@ const TarefasList = (props) => {
   chamada novaTarefa que recebe o response.data e então 
   o setTarefas pega o valor de todo o array de tarefas + o novaTarefas
   */
-  const salvar = (tarefa) => {
-    axios.post(API, tarefa, {
-      headers: { "x-tenant-id": localStorage.getItem('email_usuario_logado') }
-    }).then(response => {
-      const novaTarefa = response.data
-      setTarefas([...tarefas, novaTarefa])
-      setMensagem('salvo com sucesso!')
-      setOpenDialog(true)
-    }).catch(erro => {
-      setMensagem('ocorreu um erro')
-      setOpenDialog(true)
-    })
-  }
-
-  const listarTarefas = () => {
-    axios.get(API, {
-      headers: { "x-tenant-id": localStorage.getItem('email_usuario_logado') }
-    }).then(response => {
-      const listaTarefas = response.data;
-      setTarefas(listaTarefas)
-    }).catch(erro => {
-      console.log(erro)
-    })
-  }
+  // const salvar = (tarefa) => {
+  //   axios.post(API, tarefa, {
+  //     headers: { "x-tenant-id": localStorage.getItem('email_usuario_logado') }
+  //   }).then(response => {
+  //     const novaTarefa = response.data
+  //     setTarefas([...tarefas, novaTarefa])
+  //     setMensagem('salvo com sucesso!')
+  //     setOpenDialog(true)
+  //   }).catch(erro => {
+  //     setMensagem('ocorreu um erro')
+  //     setOpenDialog(true)
+  //   })
+  // }
+//Devido ao uso do redux n usaremos mais esse metodo
+  // const listarTarefas = () => {
+  //   axios.get(API, {
+  //     headers: { "x-tenant-id": localStorage.getItem('email_usuario_logado') }
+  //   }).then(response => {
+  //     const listaTarefas = response.data;
+  //     setTarefas(listaTarefas)
+  //   }).catch(erro => {
+  //     console.log(erro)
+  //   })
+  // }
 
   const alterarStatus = (id) => {
     axios.patch(`${API}/${id}`, null, {
@@ -101,7 +101,7 @@ const TarefasList = (props) => {
 
   return (
     <div className={classes.root}>
-      <TarefasToolbar salvar={salvar} />
+      <TarefasToolbar salvar={props.salvar} />
       <div className={classes.content}>
         <TarefasTable
           deleteAction={deletar}
@@ -125,6 +125,6 @@ const mapSatateToProps = state =>({
   tarefas: state.tarefas.tarefas
 })
 const mapDispatchToProps = dispatch =>
- bindActionCreators({listar}, dispatch)
+ bindActionCreators({listar, salvar}, dispatch)
 
 export default connect(mapSatateToProps, mapDispatchToProps)(TarefasList);

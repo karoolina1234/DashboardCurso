@@ -15,6 +15,8 @@ export const tarefaReducer = (state = ESTADO_INICIAL, action) =>{
     switch(action.type){
         case ACTIONS.LISTAR:
             return {...state, tarefas:action.tarefas}
+        case ACTIONS.ADD:
+             return{...state, tarefas: [...state.tarefas, action.tarefa]}
         default:
             return state
     }
@@ -31,4 +33,17 @@ export function listar(){
         })
     })
 }
+}
+
+export function salvar(tarefa){
+    return dispatch =>{
+        http.post('/tarefas', tarefa, {
+            headers:  { "x-tenant-id": localStorage.getItem('email_usuario_logado')}
+        }).then(response=>{
+            dispatch({
+                type: ACTIONS.ADD,
+                tarefa: response.data
+            })
+        })
+    }
 }
