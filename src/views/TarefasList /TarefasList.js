@@ -6,7 +6,7 @@ import axios from 'axios'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { listar , salvar} from 'store/tarefasReducer'
+import { listar , salvar, deletar} from 'store/tarefasReducer'
 import {
   Dialog,
   DialogContent,
@@ -84,17 +84,17 @@ const TarefasList = (props) => {
     })
   }
 
-  const deletar = (id) => {
-    axios.delete(`${API}/${id}`, { headers: { "x-tenant-id": localStorage.getItem('email_usuario_logado') } })
-      .then(response => {
-        const lista = tarefas.filter(tarefa => tarefa.id !== id)
-        setTarefas(lista)
-        setOpenDialog(true)
-        setMensagem('Removido com sucesso')
-      }).catch(erro => {
-        console.log(erro)
-      })
-  }
+  // const deletar = (id) => {
+  //   axios.delete(`${API}/${id}`, { headers: { "x-tenant-id": localStorage.getItem('email_usuario_logado') } })
+  //     .then(response => {
+  //       const lista = tarefas.filter(tarefa => tarefa.id !== id)
+  //       setTarefas(lista)
+  //       setOpenDialog(true)
+  //       setMensagem('Removido com sucesso')
+  //     }).catch(erro => {
+  //       console.log(erro)
+  //     })
+  // }
   useEffect(() => {
     props.listar()
   }, [])
@@ -104,7 +104,7 @@ const TarefasList = (props) => {
       <TarefasToolbar salvar={props.salvar} />
       <div className={classes.content}>
         <TarefasTable
-          deleteAction={deletar}
+          deleteAction={props.deletar}
           alterarStatus={alterarStatus}
           tarefas={props.tarefas} />
       </div>
@@ -125,6 +125,6 @@ const mapSatateToProps = state =>({
   tarefas: state.tarefas.tarefas
 })
 const mapDispatchToProps = dispatch =>
- bindActionCreators({listar, salvar}, dispatch)
+ bindActionCreators({listar, salvar, deletar}, dispatch)
 
 export default connect(mapSatateToProps, mapDispatchToProps)(TarefasList);
