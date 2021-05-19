@@ -8,6 +8,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 
+import {withRouter} from 'react-router-dom'
+
 const useStyles = makeStyles(theme => ({
   root: {
     boxShadow: 'none'
@@ -26,6 +28,11 @@ const Topbar = props => {
   const classes = useStyles();
 
   const [notifications] = useState([]);
+
+  const logout = () =>{
+    localStorage.removeItem('email_usuario_logado')
+    props.history.push('/login')
+  }
 
   return (
     <AppBar
@@ -51,6 +58,7 @@ const Topbar = props => {
             </Badge>
           </IconButton>
           <IconButton
+            onClick={logout}
             className={classes.signOutButton}
             color="inherit"
           >
@@ -75,4 +83,4 @@ Topbar.propTypes = {
   onSidebarOpen: PropTypes.func
 };
 
-export default Topbar;
+export default withRouter(Topbar);
