@@ -65,6 +65,16 @@ const TarefasList = () => {
       console.log(erro)
     })
   }
+
+  const deletar = (id)=>{
+    axios.delete(`${API}/${id}`,{headers:headers_api})
+    .then(response=>{
+     const lista = tarefas.filter(tarefa => tarefa.id !== id)
+     setTarefas(lista)
+    }).catch(erro =>{
+      console.log(erro)
+    })
+  }
   useEffect(() => {
     listarTarefas();
   }, [])
@@ -73,7 +83,10 @@ const TarefasList = () => {
     <div className={classes.root}>
       <TarefasToolbar salvar={salvar} />
       <div className={classes.content}>
-        <TarefasTable alterarStatus={alterarStatus} tarefas={tarefas} />
+        <TarefasTable 
+        deleteAction={deletar}
+        alterarStatus={alterarStatus}
+        tarefas={tarefas} />
       </div>
     </div>
   );
