@@ -29,7 +29,7 @@ const TarefasList = () => {
   const [mensagem, setMensagem] = useState('')
   
   const API = 'https://minhastarefas-api.herokuapp.com/tarefas';
-  const headers_api = { "x-tenant-id": "karoolina.sm@gmail.com" }
+
 
   /*
   Função que salva a tarefa.
@@ -40,7 +40,7 @@ const TarefasList = () => {
   */
   const salvar = (tarefa) => {
     axios.post(API, tarefa, {
-      headers: headers_api
+      headers:  { "x-tenant-id": localStorage.getItem('email_usuario_logado') }
     }).then(response => {
       const novaTarefa = response.data
       setTarefas([...tarefas, novaTarefa])
@@ -54,7 +54,7 @@ const TarefasList = () => {
 
   const listarTarefas = () => {
     axios.get(API, {
-      headers: headers_api
+      headers:  { "x-tenant-id": localStorage.getItem('email_usuario_logado') }
     }).then(response => {
       const listaTarefas = response.data;
       setTarefas(listaTarefas)
@@ -65,7 +65,7 @@ const TarefasList = () => {
   
   const alterarStatus = (id) => {
     axios.patch(`${API}/${id}`, null, {
-      headers: headers_api
+      headers:  { "x-tenant-id": localStorage.getItem('email_usuario_logado')}
     }).then(response =>{
       const lista = [...tarefas]
       lista.forEach(tarefa =>{
@@ -82,7 +82,7 @@ const TarefasList = () => {
   }
 
   const deletar = (id)=>{
-    axios.delete(`${API}/${id}`,{headers:headers_api})
+    axios.delete(`${API}/${id}`,{headers: { "x-tenant-id": localStorage.getItem('email_usuario_logado')}})
     .then(response=>{
      const lista = tarefas.filter(tarefa => tarefa.id !== id)
      setTarefas(lista)
