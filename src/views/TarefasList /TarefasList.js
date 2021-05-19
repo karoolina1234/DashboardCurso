@@ -4,6 +4,14 @@ import { makeStyles } from '@material-ui/styles';
 import { TarefasToolbar, TarefasTable } from './components';
 import axios from 'axios'
 
+import {
+  Dialog,
+  DialogContent,
+  DialogActions,
+  DialogTitle,
+  Button
+} from '@material-ui/core'
+
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3)
@@ -17,7 +25,9 @@ const TarefasList = () => {
   const classes = useStyles();
 
   const [tarefas, setTarefas] = useState([]);
-
+  const [openDialog, setOpenDialog] = useState(false)
+  const [mensagem, setMensagem] = useState('')
+  
   const API = 'https://minhastarefas-api.herokuapp.com/tarefas';
   const headers_api = { "x-tenant-id": "karoolina.sm@gmail.com" }
 
@@ -34,8 +44,11 @@ const TarefasList = () => {
     }).then(response => {
       const novaTarefa = response.data
       setTarefas([...tarefas, novaTarefa])
+      setMensagem('salvo com sucesso!')
+      setOpenDialog(true)
     }).catch(erro => {
-      console.log(erro)
+      setMensagem('ocorreu um erro')
+      setOpenDialog(true)
     })
   }
 
@@ -60,6 +73,8 @@ const TarefasList = () => {
           tarefa.done = true
         }
         setTarefas(lista)
+        setOpenDialog(true)
+        setMensagem('atualizado com sucesso!')
       })
     }).catch(erro=>{
       console.log(erro)
@@ -71,6 +86,8 @@ const TarefasList = () => {
     .then(response=>{
      const lista = tarefas.filter(tarefa => tarefa.id !== id)
      setTarefas(lista)
+     setOpenDialog(true)
+     setMensagem('Removido com sucesso')
     }).catch(erro =>{
       console.log(erro)
     })
@@ -88,6 +105,15 @@ const TarefasList = () => {
         alterarStatus={alterarStatus}
         tarefas={tarefas} />
       </div>
+      <Dialog open={openDialog} onClose={e => setOpenDialog(false)}>
+        <DialogTitle>Atenção</DialogTitle>
+        <DialogContent>
+          {mensagem}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={e => setOpenDialog(false)}>Fechar</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
