@@ -54,7 +54,13 @@ const TarefasList = () => {
     axios.patch(`${API}/${id}`, null, {
       headers: headers_api
     }).then(response =>{
-      console.log(response.status)
+      const lista = [...tarefas]
+      lista.forEach(tarefa =>{
+        if(tarefa.id === id){
+          tarefa.done = true
+        }
+        setTarefas(lista)
+      })
     }).catch(erro=>{
       console.log(erro)
     })
