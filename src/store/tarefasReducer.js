@@ -54,10 +54,10 @@ export function salvar(tarefa) {
         http.post('/tarefas', tarefa, {
             headers: { "x-tenant-id": localStorage.getItem('email_usuario_logado') }
         }).then(response => {
-            dispatch({
+            dispatch([{
                 type: ACTIONS.ADD,
                 tarefa: response.data
-            })
+            },mostrarMensagem('salvo com sucesso')])
         })
     }
 }
@@ -67,10 +67,10 @@ export function deletar(id) {
         http.delete(`/tarefas/${id}`, {
             headers: { "x-tenant-id": localStorage.getItem('email_usuario_logado')}
         }).then(response =>{
-            dispatch({
+            dispatch([{
                 type: ACTIONS.REMOVER,
                 id:id
-            })
+            },mostrarMensagem('removido com sucesso')])
         })
     }
 }
@@ -80,9 +80,9 @@ export function alterarStatus(id){
     http.patch(`/tarefas/${id}`, null , {
         headers: { "x-tenant-id": localStorage.getItem('email_usuario_logado')}
     }).then(response=>{
-        dispatch({
+        dispatch([{
             type: ACTIONS.UPDATE_STATUS,
             id: id
-        })
+        },mostrarMensagem('status modificado com sucesso')])
     })
 }}
