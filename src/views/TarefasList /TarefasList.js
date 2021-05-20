@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import { TarefasToolbar, TarefasTable } from './components';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { listar , salvar, deletar, alterarStatus} from 'store/tarefasReducer'
+import { listar, salvar, deletar, alterarStatus } from 'store/tarefasReducer'
 import {
   Dialog,
   DialogContent,
@@ -12,6 +12,9 @@ import {
   Button
 } from '@material-ui/core'
 
+import {
+  esconderMensagem
+} from 'store/mensagensReducer'
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3)
@@ -23,8 +26,6 @@ const useStyles = makeStyles(theme => ({
 
 const TarefasList = (props) => {
   const classes = useStyles();
-  const [openDialog, setOpenDialog] = useState(false)
-  const [mensagem, setMensagem] = useState('')
 
   useEffect(() => {
     props.listar()
@@ -39,23 +40,25 @@ const TarefasList = (props) => {
           alterarStatus={props.alterarStatus}
           tarefas={props.tarefas} />
       </div>
-      <Dialog open={openDialog} onClose={e => setOpenDialog(false)}>
+      <Dialog open={props.openDialog} onClose={props.esconderMensagem}>
         <DialogTitle>Atenção</DialogTitle>
         <DialogContent>
-          {mensagem}
+          {props.mensagem}
         </DialogContent>
         <DialogActions>
-          <Button onClick={e => setOpenDialog(false)}>Fechar</Button>
+          <Button onClick={props.esconderMensagem}>Fechar</Button>
         </DialogActions>
       </Dialog>
     </div>
   );
 };
 
-const mapSatateToProps = state =>({
-  tarefas: state.tarefas.tarefas
+const mapSatateToProps = state => ({
+  tarefas: state.tarefas.tarefas,
+  mensagem: state.mensagens.mensagem,
+  openDialog: state.mensagens.mostrarMensagem
 })
 const mapDispatchToProps = dispatch =>
- bindActionCreators({listar, salvar, deletar, alterarStatus}, dispatch)
+  bindActionCreators({ listar, salvar, deletar, alterarStatus , esconderMensagem}, dispatch)
 
 export default connect(mapSatateToProps, mapDispatchToProps)(TarefasList);
